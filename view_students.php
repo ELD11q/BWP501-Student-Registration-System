@@ -46,24 +46,29 @@ function makeLink($newPage, $newSort = null)
     ]);
 }
 
-$title = "View Students";
-include "header.php";
+$isAjax = isset($_GET['ajax']);
+
+if (!$isAjax) {
+    $title = "View Students";
+    include "header.php";
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Students (<?= $total ?>)</h2>
+    <h2>Students</h2>
     <a href="add_student.php" class="btn btn-success">+ Add Student</a>
 </div>
 
-<form method="GET" action="view_students.php" class="mb-3">
+<form id="searchForm" method="GET" action="view_students.php" class="mb-3">
     <div class="input-group">
-        <input type="text" name="search" class="form-control" placeholder="Search by name, email or phone" value="<?= clean($search) ?>">
+        <input type="text" name="search" id="search" class="form-control" placeholder="Search by name, email or phone" value="<?= clean($search) ?>">
         <button class="btn btn-primary" type="submit">Search</button>
-        <?php if ($search != ""): ?>
-            <a href="view_students.php" class="btn btn-outline-secondary">Clear</a>
-        <?php endif; ?>
     </div>
 </form>
+
+<?php } ?>
+
+<div id="results">
+<p class="text-muted">Total: <?= $total ?> students - Page <?= $page ?> of <?= $totalPages ?></p>
 
 <?php if (empty($students)): ?>
     <div class="alert alert-info">No students found.</div>
@@ -125,5 +130,10 @@ include "header.php";
         </ul>
     </nav>
 <?php endif; ?>
+</div>
 
-<?php include "footer.php"; ?>
+<?php
+if (!$isAjax) {
+    include "footer.php";
+}
+?>

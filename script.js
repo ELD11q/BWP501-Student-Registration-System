@@ -105,10 +105,63 @@ if (studentForm) {
     });
 }
 
-document.querySelectorAll(".delete-form").forEach(function (form) {
-    form.addEventListener("submit", function (e) {
+document.addEventListener("submit", function (e) {
+    if (e.target.classList.contains("delete-form")) {
         if (!confirm("Are you sure you want to delete this student?")) {
             e.preventDefault();
         }
-    });
+    }
 });
+
+var searchForm = document.getElementById("searchForm");
+
+function loadStudents(url) {
+    var ajaxUrl = url + (url.indexOf("?") == -1 ? "?" : "&") + "ajax=1";
+
+    fetch(ajaxUrl)
+        .then(function (response) {
+            if (response.url.indexOf("login.html") != -1) {
+                window.location.href = "login.html?error=login";
+            }
+            return response.text();
+        })
+        .then(function (html) {
+            document.getElementById("results").outerHTML = html;
+            history.pushState(null, "", url);
+        });
+}
+
+if (searchForm) {
+    var searchTimer;
+
+    function searchUrl() {
+        var text = document.getElementById("search").value;
+        return "view_students.php?search=" + encodeURIComponent(text) + "&page=1";
+    }
+
+    searchForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        loadStudents(searchUrl());
+    });
+
+    document.getElementById("search").addEventListener("input", function () {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(function () {
+            loadStudents(searchUrl());
+        }, 400);
+    });
+
+    document.addEventListener("click", function (e) {
+        var link = e.target.closest("#results .page-link, #results th a");
+        if (link) {
+            e.preventDefault();
+            if (!link.closest(".disabled")) {
+                loadStudents(link.getAttribute("href"));
+            }
+        }
+    });
+
+    window.addEventListener("popstate", function () {
+        location.reload();
+    });
+}

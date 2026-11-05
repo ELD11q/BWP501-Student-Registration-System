@@ -41,9 +41,9 @@ Database name: `student_registration_system`
 
 **students**: id, name, email, phone, address, profile_picture, created_at
 
-## How to run (XAMPP)
-1. Install XAMPP and start Apache and MySQL.
-2. Copy the project folder to `C:\xampp\htdocs\`.
+## How to run on a local server (XAMPP or WAMP)
+1. Install XAMPP (or WAMP) and start Apache and MySQL.
+2. Copy the project folder to `C:\xampp\htdocs\` (for WAMP: `C:\wamp64\www\`).
 3. Open `http://localhost/phpmyadmin`, click Import and choose `database.sql`.
 4. Open `http://localhost/<folder name>/` in the browser.
 
@@ -64,7 +64,7 @@ The database settings are at the top of `db.php` (default: localhost, root, no p
 
 ## How it works
 - **Search**: `WHERE name LIKE ? OR email LIKE ? OR phone LIKE ?` with prepared statements.
-- **Pagination**: `COUNT(*)` gives the total, then `LIMIT 10 OFFSET (page - 1) * 10` gets one page.
+- **Pagination**: on the server, `COUNT(*)` gives the total, then `LIMIT 10 OFFSET (page - 1) * 10` gets one page. On the client, `script.js` loads the next page, the sorting and the search results with `fetch()` (`view_students.php?ajax=1` returns only the table), so the page does not reload.
 - **AJAX validation**: `script.js` sends the form to `validate_student.php` with `fetch()`. The PHP file returns JSON with the errors and they are shown under each field without reloading the page. The same check runs again in PHP when saving.
 - **File upload**: the picture is checked (type and size up to 2MB), renamed, moved to `uploads/` with `move_uploaded_file()`, and its path is saved in the `profile_picture` column.
 - **Security**: PDO prepared statements against SQL injection, `htmlspecialchars()` against XSS, hashed passwords.

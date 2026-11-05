@@ -3,3 +3,4 @@ uploads/*
 *.md
 !README.md
 *.zip
+deploy/
