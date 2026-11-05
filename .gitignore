@@ -1,0 +1,6 @@
+# Real database credentials - never commit
+config.local.php
+
+# Uploaded student pictures (keep the folder and its .htaccess)
+uploads/*
+!uploads/.htaccess
