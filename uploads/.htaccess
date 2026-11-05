@@ -1,5 +1,4 @@
-# Security: never execute scripts from the uploads folder
-<FilesMatch "\.(php|phtml|php\d|phar|pl|py|cgi|sh)$">
+<FilesMatch "\.(php|phtml|phar)$">
     Require all denied
 </FilesMatch>
 Options -Indexes
