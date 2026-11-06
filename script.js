@@ -1,13 +1,13 @@
 var messages = {
-    login: "Please login first.",
-    wrong: "Wrong username/email or password.",
-    empty: "Please fill all the fields.",
-    email: "Please enter a valid email.",
-    short: "Password must be at least 6 characters.",
-    match: "Passwords do not match.",
-    exists: "Username or email is already registered.",
-    registered: "Account created! You can login now.",
-    logout: "You logged out successfully."
+    login: "الرجاء تسجيل الدخول أولاً.",
+    wrong: "اسم المستخدم أو البريد أو كلمة المرور غير صحيحة.",
+    empty: "الرجاء تعبئة جميع الحقول.",
+    email: "الرجاء إدخال بريد إلكتروني صحيح.",
+    short: "كلمة المرور يجب أن تكون 6 أحرف على الأقل.",
+    match: "كلمتا المرور غير متطابقتين.",
+    exists: "اسم المستخدم أو البريد الإلكتروني مسجل مسبقاً.",
+    registered: "تم إنشاء الحساب! يمكنك تسجيل الدخول الآن.",
+    logout: "تم تسجيل الخروج بنجاح."
 };
 
 var params = new URLSearchParams(window.location.search);
@@ -17,10 +17,10 @@ if (msgBox) {
     var error = params.get("error");
     var success = params.get("success");
     if (error) {
-        msgBox.textContent = messages[error] || "Something went wrong.";
+        msgBox.textContent = messages[error] || "حدث خطأ ما.";
         msgBox.className = "alert alert-danger";
     } else if (success) {
-        msgBox.textContent = messages[success] || "Done.";
+        msgBox.textContent = messages[success] || "تم.";
         msgBox.className = "alert alert-success";
     }
 }
@@ -34,7 +34,7 @@ if (registerForm) {
 
         if (password.length < 6) {
             e.preventDefault();
-            alert("Password must be at least 6 characters.");
+            alert("كلمة المرور يجب أن تكون 6 أحرف على الأقل.");
         } else if (password != confirm.value) {
             e.preventDefault();
             confirm.classList.add("is-invalid");
@@ -107,7 +107,7 @@ if (studentForm) {
 
 document.addEventListener("submit", function (e) {
     if (e.target.classList.contains("delete-form")) {
-        if (!confirm("Are you sure you want to delete this student?")) {
+        if (!confirm("هل أنت متأكد من حذف هذا الطالب؟")) {
             e.preventDefault();
         }
     }

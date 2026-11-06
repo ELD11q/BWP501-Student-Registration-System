@@ -17,7 +17,7 @@ if ($student) {
     $stmt = $conn->prepare("DELETE FROM students WHERE id = ?");
     $stmt->execute([$id]);
     deletePicture($student['profile_picture']);
-    $_SESSION['message'] = "Student deleted successfully";
+    $_SESSION['message'] = "تم حذف الطالب بنجاح";
 }
 
 header("Location: view_students.php");

@@ -4,3 +4,4 @@ uploads/*
 !README.md
 *.zip
 deploy/
+*.txt

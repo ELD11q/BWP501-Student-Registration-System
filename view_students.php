@@ -49,41 +49,41 @@ function makeLink($newPage, $newSort = null)
 $isAjax = isset($_GET['ajax']);
 
 if (!$isAjax) {
-    $title = "View Students";
+    $title = "عرض الطلاب";
     include "header.php";
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Students</h2>
-    <a href="add_student.php" class="btn btn-success">+ Add Student</a>
+    <h2>الطلاب</h2>
+    <a href="add_student.php" class="btn btn-success">+ إضافة طالب</a>
 </div>
 
 <form id="searchForm" method="GET" action="view_students.php" class="mb-3">
     <div class="input-group">
-        <input type="text" name="search" id="search" class="form-control" placeholder="Search by name, email or phone" value="<?= clean($search) ?>">
-        <button class="btn btn-primary" type="submit">Search</button>
+        <input type="text" name="search" id="search" class="form-control" placeholder="ابحث بالاسم أو البريد أو رقم الجوال" value="<?= clean($search) ?>">
+        <button class="btn btn-primary" type="submit">بحث</button>
     </div>
 </form>
 
 <?php } ?>
 
 <div id="results">
-<p class="text-muted">Total: <?= $total ?> students - Page <?= $page ?> of <?= $totalPages ?></p>
+<p class="text-muted">المجموع: <?= $total ?> طالب - صفحة <?= $page ?> من <?= $totalPages ?></p>
 
 <?php if (empty($students)): ?>
-    <div class="alert alert-info">No students found.</div>
+    <div class="alert alert-info">لا يوجد طلاب.</div>
 <?php else: ?>
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle bg-white">
             <thead class="table-primary">
             <tr>
-                <th><a href="<?= makeLink(1, 'id') ?>">ID</a></th>
-                <th>Picture</th>
-                <th><a href="<?= makeLink(1, 'name') ?>">Name</a></th>
-                <th><a href="<?= makeLink(1, 'email') ?>">Email</a></th>
-                <th><a href="<?= makeLink(1, 'phone') ?>">Phone</a></th>
-                <th class="d-none d-md-table-cell">Address</th>
-                <th>Actions</th>
+                <th><a href="<?= makeLink(1, 'id') ?>">الرقم</a></th>
+                <th>الصورة</th>
+                <th><a href="<?= makeLink(1, 'name') ?>">الاسم</a></th>
+                <th><a href="<?= makeLink(1, 'email') ?>">البريد الإلكتروني</a></th>
+                <th><a href="<?= makeLink(1, 'phone') ?>">الجوال</a></th>
+                <th class="d-none d-md-table-cell">العنوان</th>
+                <th>الإجراءات</th>
             </tr>
             </thead>
             <tbody>
@@ -102,10 +102,10 @@ if (!$isAjax) {
                     <td><?= clean($s['phone']) ?></td>
                     <td class="d-none d-md-table-cell"><?= clean($s['address']) ?></td>
                     <td class="text-nowrap">
-                        <a href="update_student.php?id=<?= $s['id'] ?>" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="update_student.php?id=<?= $s['id'] ?>" class="btn btn-sm btn-warning">تعديل</a>
                         <form action="delete_student.php" method="POST" class="d-inline delete-form">
                             <input type="hidden" name="id" value="<?= $s['id'] ?>">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-sm btn-danger">حذف</button>
                         </form>
                     </td>
                 </tr>
@@ -117,7 +117,7 @@ if (!$isAjax) {
     <nav>
         <ul class="pagination justify-content-center">
             <li class="page-item <?= $page <= 1 ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= makeLink($page - 1) ?>">Previous</a>
+                <a class="page-link" href="<?= makeLink($page - 1) ?>">السابق</a>
             </li>
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                 <li class="page-item <?= $i == $page ? 'active' : '' ?>">
@@ -125,7 +125,7 @@ if (!$isAjax) {
                 </li>
             <?php endfor; ?>
             <li class="page-item <?= $page >= $totalPages ? 'disabled' : '' ?>">
-                <a class="page-link" href="<?= makeLink($page + 1) ?>">Next</a>
+                <a class="page-link" href="<?= makeLink($page + 1) ?>">التالي</a>
             </li>
         </ul>
     </nav>

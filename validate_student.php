@@ -4,7 +4,7 @@ require "db.php";
 header("Content-Type: application/json");
 
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(["valid" => false, "errors" => ["login" => "Please login first"]]);
+    echo json_encode(["valid" => false, "errors" => ["login" => "الرجاء تسجيل الدخول أولاً"]]);
     exit;
 }
 
